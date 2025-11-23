@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/static/css/main.70ea5a58.css",
+    "main.js": "/static/js/main.e2bc3354.js",
+    "static/js/453.6946e9a5.chunk.js": "/static/js/453.6946e9a5.chunk.js",
+    "static/media/ElmsSans-Regular.ttf": "/static/media/ElmsSans-Regular.c2ccf5c7d4a72d1c3d66.ttf",
+    "static/media/ElmsSans-Bold.ttf": "/static/media/ElmsSans-Bold.2fa642339a53c5a01058.ttf",
+    "index.html": "/index.html",
+    "main.70ea5a58.css.map": "/static/css/main.70ea5a58.css.map",
+    "main.e2bc3354.js.map": "/static/js/main.e2bc3354.js.map",
+    "453.6946e9a5.chunk.js.map": "/static/js/453.6946e9a5.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.70ea5a58.css",
+    "static/js/main.e2bc3354.js"
+  ]
+}

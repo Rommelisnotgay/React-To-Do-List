@@ -1,0 +1,35 @@
+.btn-grp:hover {
+  background-color: #c5c5c5 !important;
+}
+
+.btn-grp {
+  transition: all 0.5s ease !important;
+  -webkit-transition: all 0.5s ease !important;
+  -moz-transition: all 0.5s ease !important;
+  -ms-transition: all 0.5s ease !important;
+  -o-transition: all 0.5s ease !important;
+  box-shadow: 0px 7px 7px rgba(0, 0, 0, 0.4);
+}
+.taskCard {
+  transition: all 0.2s ease !important;
+  -webkit-transition: all 0.2s ease !important;
+  -moz-transition: all 0.2s ease !important;
+  -ms-transition: all 0.2s ease !important;
+  -o-transition: all 0.2s ease !important;
+}
+.taskCard:hover {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  box-shadow: 0px 7px 7px rgba(0, 0, 0, 0.4);
+}
+
+@font-face {
+  font-family: "A";
+  src: url("../public/fonts/ElmsSans-Regular.ttf");
+  font-weight: normal;
+}
+@font-face {
+  font-family: "A";
+  src: url("../public/fonts/ElmsSans-Bold.ttf");
+  font-weight: bold;
+}
