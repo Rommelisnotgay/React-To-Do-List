@@ -28,8 +28,9 @@ function App() {
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              height: "100vh",
+              minHeight: "100vh",
               background: "#191b1f",
+              padding: "8px",
             }}
           >
             <MainBody />

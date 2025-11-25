@@ -132,10 +132,20 @@ export default function MainBody() {
   }
   return (
     <>
-      <Dialog open={showUpdateAlert} onClose={handleUpdateClose}>
-        <DialogTitle>Update Task</DialogTitle>
+      <Dialog
+        open={showUpdateAlert}
+        onClose={handleUpdateClose}
+        fullWidth
+        maxWidth="xs"
+        PaperProps={{
+          sx: { borderRadius: { xs: "8px", sm: "12px" } },
+        }}
+      >
+        <DialogTitle sx={{ fontSize: { xs: "1.2rem", sm: "1.5rem" } }}>
+          Update Task
+        </DialogTitle>
         <DialogContent>
-          <DialogContentText>
+          <DialogContentText sx={{ fontSize: { xs: "0.875rem", sm: "1rem" } }}>
             Update the details of your task here.
           </DialogContentText>
 
@@ -152,6 +162,7 @@ export default function MainBody() {
             onChange={(e) => {
               setupdateds({ ...updatedtodos, title: e.target.value });
             }}
+            size="small"
           />
           <TextField
             autoFocus
@@ -166,14 +177,18 @@ export default function MainBody() {
             onChange={(e) => {
               setupdateds({ ...updatedtodos, details: e.target.value });
             }}
+            size="small"
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleUpdateClose}>Cancel</Button>
+          <Button onClick={handleUpdateClose} size="small">
+            Cancel
+          </Button>
           <Button
             type="submit"
             form="subscription-form"
             onClick={handleUpdateConfirm}
+            size="small"
           >
             Update
           </Button>
@@ -184,26 +199,43 @@ export default function MainBody() {
         open={showDeleteAlert}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
+        fullWidth
+        maxWidth="xs"
+        PaperProps={{
+          sx: { borderRadius: { xs: "8px", sm: "12px" } },
+        }}
       >
-        <DialogTitle id="alert-dialog-title">
+        <DialogTitle
+          id="alert-dialog-title"
+          sx={{ fontSize: { xs: "1.1rem", sm: "1.3rem" } }}
+        >
           {"Are you sure you want to delete this task?"}
         </DialogTitle>
         <DialogContent>
-          <DialogContentText id="alert-dialog-description">
+          <DialogContentText
+            id="alert-dialog-description"
+            sx={{ fontSize: { xs: "0.875rem", sm: "1rem" } }}
+          >
             The Task Will Be Permanently Deleted
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleDeleteClose}>Disagree</Button>
-          <Button autoFocus onClick={handleDeleteConfirm}>
+          <Button onClick={handleDeleteClose} size="small">
+            Disagree
+          </Button>
+          <Button autoFocus onClick={handleDeleteConfirm} size="small">
             Agree
           </Button>
         </DialogActions>
       </Dialog>
-      <Container maxWidth="sm">
+      <Container maxWidth="sm" sx={{ px: { xs: 1, sm: 2 } }}>
         <Card
-          sx={{ minWidth: 275 }}
-          style={{ maxHeight: "80vh", overflow: "scroll" }}
+          sx={{
+            minWidth: 275,
+            maxHeight: "80vh",
+            overflow: "auto",
+            borderRadius: { xs: "8px", sm: "12px" },
+          }}
         >
           <CardContent
             style={{
@@ -211,17 +243,36 @@ export default function MainBody() {
               flexDirection: "column",
               justifyContent: "center",
               alignItems: "center",
+              padding: "16px",
             }}
           >
-            <Typography gutterBottom sx={{ color: "black" }} variant="h2">
+            <Typography
+              gutterBottom
+              sx={{
+                color: "black",
+                variant: "h2",
+                fontSize: { xs: "1.5rem", sm: "2rem", md: "2.5rem" },
+              }}
+            >
               My List
             </Typography>
-            <Divider style={{ alignSelf: "normal" }} />
+            <Divider style={{ alignSelf: "normal", margin: "10px 0" }} />
             <ToggleButtonGroup
               exclusive
               aria-label="text alignment"
               value={displaytodo}
               onChange={changeDisplayType}
+              size="small"
+              sx={{
+                display: "flex",
+                flexWrap: "wrap",
+                gap: "4px",
+                justifyContent: "center",
+                "& .MuiToggleButton-root": {
+                  fontSize: { xs: "0.75rem", sm: "0.875rem" },
+                  padding: { xs: "6px 8px", sm: "6px 12px" },
+                },
+              }}
             >
               <ToggleButton value="all">All</ToggleButton>
               <ToggleButton value="completed">Done</ToggleButton>
@@ -233,11 +284,15 @@ export default function MainBody() {
 
             <Grid
               container
-              sx={{ marginTop: "20px", width: "96%" }}
-              spacing={1}
+              sx={{
+                marginTop: "20px",
+                width: "100%",
+                px: { xs: 0, sm: 1 },
+              }}
+              spacing={{ xs: 0.5, sm: 1 }}
             >
               <Grid
-                size={8}
+                size={{ xs: 12, sm: 8 }}
                 display="flex"
                 justifyContent="space-around"
                 alignItems="center"
@@ -253,6 +308,7 @@ export default function MainBody() {
                   onChange={(e) => {
                     setinput({ ...todoInput, title: e.target.value });
                   }}
+                  size="small"
                 />
                 <TextField
                   id="outlined-basic"
@@ -263,10 +319,11 @@ export default function MainBody() {
                   onChange={(e) => {
                     setinput({ ...todoInput, details: e.target.value });
                   }}
+                  size="small"
                 />
               </Grid>
               <Grid
-                size={4}
+                size={{ xs: 12, sm: 4 }}
                 display="flex"
                 justifyContent="center"
                 alignItems="center"
@@ -274,10 +331,11 @@ export default function MainBody() {
                 <Button
                   disabled={todoInput.title.trim() === ""}
                   variant="contained"
-                  style={{ width: "100%", height: "55px" }}
+                  style={{ width: "100%", height: "40px" }}
                   onClick={() => {
                     handleAddClick();
                   }}
+                  size="small"
                 >
                   Add
                 </Button>
