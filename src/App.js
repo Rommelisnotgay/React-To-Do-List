@@ -1,9 +1,9 @@
 import "./App.css";
 import MainBody from "./components/MainBody";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { TodoContext } from "./contexts/todoContext";
-import { useState } from "react";
 
+import TodosProvider from "./contexts/todoContext";
+import { ToastProvider } from "./contexts/toastContext";
 const theme = createTheme({
   typography: {
     fontFamily: "A",
@@ -17,24 +17,25 @@ const theme = createTheme({
     },
   },
 });
-const tasks = [];
+
 function App() {
-  const [todo, setodo] = useState(tasks);
   return (
     <ThemeProvider theme={theme}>
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          height: "100vh",
-          background: "#191b1f",
-        }}
-      >
-        <TodoContext.Provider value={{ todo, setodo }}>
-          <MainBody />
-        </TodoContext.Provider>
-      </div>
+      <TodosProvider>
+        <ToastProvider>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              height: "100vh",
+              background: "#191b1f",
+            }}
+          >
+            <MainBody />
+          </div>
+        </ToastProvider>
+      </TodosProvider>
     </ThemeProvider>
   );
 }

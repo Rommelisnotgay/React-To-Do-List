@@ -7,135 +7,28 @@ import CheckIcon from "@mui/icons-material/Check";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
-import { useContext, useState } from "react";
-import { TodoContext } from "../contexts/todoContext";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import Button from "@mui/material/Button";
-import DialogTitle from "@mui/material/DialogTitle";
-import TextField from "@mui/material/TextField";
-
-export default function Task({ todo }) {
-  const [showDeleteAlert, setDeleteAlert] = useState(false);
-  const [showUpdateAlert, setUpdateAlert] = useState(false);
-  const [updatedtodo, setupdated] = useState({
-    title: todo.title,
-    details: todo.details,
-  });
-  const { todo: todos, setodo } = useContext(TodoContext);
+import { useContext } from "react";
+import { useTodos } from "../contexts/todoContext";
+import { ToastContext } from "../contexts/toastContext";
+export default function Task({ todo, showDelete, showAlert }) {
+  const { todos, dispatch } = useTodos();
+  const { showhidetoast } = useContext(ToastContext);
   function handleCheckClick() {
-    const updateToDos = todos.map((t) => {
-      if (t.id === todo.id) {
-        t.isCompleted = !t.isCompleted;
-      }
-      return t;
-    });
-    setodo(updateToDos);
-    localStorage.setItem("todo", JSON.stringify(updateToDos));
+    dispatch({ type: "check", payload: todo });
+
+    showhidetoast(
+      "Task is marked as " + (todo.isCompleted ? "incomplete" : "completed")
+    );
   }
   function handleDeleteClick() {
-    setDeleteAlert(true);
+    showDelete(todo.id);
   }
-  function handleDeleteClose() {
-    setDeleteAlert(false);
-  }
-  function handleDeleteConfirm() {
-    const upadatedtodo = todos.filter((t) => {
-      return t.id !== todo.id;
-    });
-    setodo(upadatedtodo);
-    localStorage.setItem("todo", JSON.stringify(upadatedtodo));
-  }
-  function handleUpdateClose() {
-    setUpdateAlert(false);
-  }
-  function handleUpdateConfirm() {
-    const updatedtodos = todos.map((t) => {
-      if (t.id === todo.id) {
-        return { ...t, title: updatedtodo.title, details: updatedtodo.details };
-      } else {
-        return t;
-      }
-    });
-    setodo(updatedtodos);
-    setUpdateAlert(false);
-    localStorage.setItem("todo", JSON.stringify(updatedtodos));
-  }
+
   function handleUpdateClick() {
-    setUpdateAlert(true);
+    showAlert(todo.id, { title: todo.title, details: todo.details });
   }
   return (
     <>
-      <Dialog open={showUpdateAlert} onClose={handleUpdateClose}>
-        <DialogTitle>Update Task</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            Update the details of your task here.
-          </DialogContentText>
-
-          <TextField
-            autoFocus
-            margin="dense"
-            id="name"
-            name="text"
-            label="Update Task Title"
-            type="text"
-            fullWidth
-            variant="standard"
-            value={updatedtodo.title}
-            onChange={(e) => {
-              setupdated({ ...updatedtodo, title: e.target.value });
-            }}
-          />
-          <TextField
-            autoFocus
-            margin="dense"
-            id="name"
-            name="text"
-            label="Update Task Description"
-            type="text"
-            fullWidth
-            variant="standard"
-            value={updatedtodo.details}
-            onChange={(e) => {
-              setupdated({ ...updatedtodo, details: e.target.value });
-            }}
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleUpdateClose}>Cancel</Button>
-          <Button
-            type="submit"
-            form="subscription-form"
-            onClick={handleUpdateConfirm}
-          >
-            Update
-          </Button>
-        </DialogActions>
-      </Dialog>
-      <Dialog
-        onClose={handleDeleteClose}
-        open={showDeleteAlert}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">
-          {"Are you sure you want to delete this task?"}
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            The Task Will Be Permanently Deleted
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleDeleteClose}>Disagree</Button>
-          <Button autoFocus onClick={handleDeleteConfirm}>
-            Agree
-          </Button>
-        </DialogActions>
-      </Dialog>
       <Card
         sx={{ minWidth: 500 }}
         style={{ background: "#283593", color: "white", marginTop: "20px" }}
